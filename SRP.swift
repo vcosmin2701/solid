@@ -51,3 +51,60 @@ let emailService = EmailService()
 emailService.sendEmail(to: userSRP, message: "[SRP] Welcome to the Agile Freaks!")
 
 /// MARK: Practice section
+
+/***
+
+class UserManager {
+    func createUser(name: String, email: String) -> UserSRP {
+        let newUser = UserSRP(name: name, email: email)
+        print("User created: \(newUser.name)")
+        return newUser
+    }
+
+    func saveUserToDatabase(user: UserSRP) {
+        print("Saving user \(user.name) to database.")
+        print("User \(user.name) saved successfully.")
+    }
+
+    func sendWelcomeMail(user: UserSRP) {
+        print("Sending welcome email to \(user.name)...")
+        print("Welcome email sent to \(user.email).")
+    }
+}
+
+let userManager = UserManager()
+let newUser = userManager.createUser(name: "Bobo", email: "f1@bb.com")
+userManager.saveUserToDatabase(user: newUser)
+userManager.sendWelcomeMail(user: newUser)
+
+***/
+
+class UserManager {
+    func createUser(name: String, email: String) -> UserSRP {
+        let newUser = UserSRP(name: name, email: email)
+        print("User created: \(newUser.name)")
+        return newUser
+    }
+}
+
+final class DatabaseService {
+    func saveUserToDatabase(user: UserSRP) {
+        print("Saving user \(user.name) to database.")
+        print("User \(user.name) saved successfully.")
+    }
+}
+
+final class EmailServiceManager {
+    func sendWelcomeMail(user: UserSRP) {
+        print("Sending welcome email to \(user.name)...")
+        print("Welcome email sent to \(user.email).")
+    }
+}
+
+let userManager = UserManager()
+let databaseService = DatabaseService()
+let emailServiceManager = EmailServiceManager()
+
+let newUser = userManager.createUser(name: "Bobo", email: "f1@gmail.com")
+databaseService.saveUserToDatabase(user: newUser)
+emailServiceManager.sendWelcomeMail(user: newUser)
