@@ -66,3 +66,90 @@ let paypal = PayPalPayment()
 
 processor.processPayment(method: creditCard, amount: 100.0)
 processor.processPayment(method: paypal, amount: 200.0)
+
+/// MARK: Practice section
+
+/***
+
+Exercise to refactor
+
+struct Rectangle {
+    var width: Double
+    var height: Double
+}
+
+struct Circle {
+    var radius: Double
+}
+
+enum ShapeType {
+    case rectangle
+    case circle
+}
+
+class AreaCalculator {
+    func calculateArea(shape: ShapeType, dimensions: Any) -> Double {
+        switch shape {
+            case .rectangle:
+                if let rect = dimensions as? Rectangle {
+                    return rect.width * rect.height
+                }
+            case .circle:
+                if let circle = dimensions as? Circle {
+                    return Double.pi * circle.radius * circle.radius
+                }
+        }
+        return 0.0
+    }
+}
+
+let rectangle = Rectangle(width: 5.0, height: 10.0)
+let circle = Circle(radius: 3.0)
+
+let areaCalculator = AreaCalculator()
+
+let rectangleArea = areaCalculator.calculateArea(shape: .rectangle, dimensions: rectangle)
+print("Rectangle area: \(rectangleArea)")
+
+let circleArea = areaCalculator.calculateArea(shape: .circle, dimensions: circle)
+print("Circle area: \(circleArea)")
+***/
+
+/// MARK: Refactored solution
+
+protocol Shape {
+    func area() -> Double
+}
+
+struct Rectangle: Shape {
+    var width: Double
+    var height: Double
+
+    func area() -> Double {
+        return width * height
+    }
+}
+
+struct Circle: Shape {
+    var radius: Double
+
+    func area() -> Double {
+        return Double.pi * radius * radius
+    }
+}
+
+class AreaCalculator {
+    func calculateArea(shape: Shape) -> Double {
+        return shape.area()
+    }
+}
+
+let rectangle = Rectangle(width: 10, height: 5)
+let circle = Circle(radius: 7)
+
+let areaCalculator = AreaCalculator()
+
+let rectangleArea = areaCalculator.calculateArea(shape: rectangle)
+let circleArea = areaCalculator.calculateArea(shape: circle)
+
+print(rectangleArea, circleArea)
